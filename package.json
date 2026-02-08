@@ -1,0 +1,28 @@
+{
+  "name": "sdet-interview-prep",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "mkdir -p public/content && cp content/*.md public/content/ 2>/dev/null || true",
+    "dev": "vite",
+    "prebuild": "mkdir -p public/content && cp content/*.md public/content/ 2>/dev/null || true",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.0",
+    "marked": "^12.0.0",
+    "highlight.js": "^11.9.0",
+    "lucide-react": "^0.344.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.0",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.17"
+  }
+}

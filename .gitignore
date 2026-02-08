@@ -3,3 +3,5 @@
 node_modules/
 .env
 windsurf_deployment.yaml
+dist/
+public/content/

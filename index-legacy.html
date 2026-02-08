@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview SDET Q&A — Vikrant Mishra</title>
-    <meta name="description" content="SDET Interview Preparation — 350+ Questions & Answers for India 2026">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
-    <!-- Google Fonts — Book-like reading fonts -->
+    <title>SDET Interview Prep — Vikrant Mishra</title>
+    <meta name="description" content="Interactive SDET Interview Preparation — 350+ Questions, Quizzes, Code Practice & Gamified Learning">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Marked.js for Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -500,50 +498,6 @@
             .reader pre { box-shadow: none; border: 1px solid #ccc; }
         }
 
-        /* =========== MOBILE RESPONSIVE =========== */
-        @media (max-width: 768px) {
-            #topbar { padding: 0 12px; }
-            .search-box { display: none; }
-            .search-box.mobile-visible {
-                display: block; position: fixed; top: 60px; left: 8px; right: 8px;
-                max-width: 100%; z-index: 200;
-            }
-            .search-box.mobile-visible input {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            }
-            .welcome h2 { font-size: 1.6rem; }
-            .welcome .stats { gap: 8px; }
-            .stat-card { padding: 12px 8px; }
-            .stat-card .num { font-size: 1.3rem; }
-            .reader-container { padding: 24px 16px 80px; }
-            .chapter-header h1 { font-size: 1.5rem; }
-            .reader h1 { font-size: 1.4rem; }
-            .reader h2 { font-size: 1.15rem; }
-            .reader p, .reader li { font-size: 14.5px; line-height: 1.75; }
-            .reader pre code { font-size: 12px !important; padding: 14px !important; }
-            .reader code:not(pre code) { font-size: 0.8em; }
-            .copy-btn { opacity: 1; }
-            .chapter-nav { flex-direction: column; gap: 10px; }
-            .chapter-nav-btn { padding: 14px 16px; }
-            .chapter-nav-btn.next { text-align: left; }
-            .chapter-meta { gap: 10px; font-size: 12px; }
-        }
-        @media (max-width: 400px) {
-            .welcome h2 { font-size: 1.3rem; }
-            .welcome-icon { width: 60px; height: 60px; }
-            .welcome-icon svg { width: 30px; height: 30px; }
-            .chapter-header .chapter-label { font-size: 10px; }
-            .chapter-header h1 { font-size: 1.3rem; }
-        }
-
-        /* Tables horizontal scroll on mobile */
-        .table-wrapper {
-            overflow-x: auto; -webkit-overflow-scrolling: touch;
-            margin: 18px 0; border-radius: 10px;
-            border: 1px solid var(--border-primary);
-        }
-        .table-wrapper table { margin: 0; border: none; }
-
         /* =========== UTILITY =========== */
         .hidden { display: none !important; }
     </style>
@@ -558,10 +512,6 @@
         <!-- Mobile menu -->
         <button class="icon-btn" onclick="toggleSidebar()" style="margin-right:10px" id="menu-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-        <!-- Mobile search toggle -->
-        <button class="icon-btn mobile-search-btn" onclick="toggleMobileSearch()" style="margin-right:6px;display:none">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
 
         <!-- Logo -->
@@ -760,11 +710,7 @@
             if (cache[item.file]) {
                 md = cache[item.file];
             } else {
-                let res = await fetch('content/' + item.file);
-                if (!res.ok) {
-                    // Fallback to GitHub raw URL (for GitHub Pages deployment)
-                    res = await fetch('https://raw.githubusercontent.com/vogueversestudio-sys/interview-sdet-qa/main/' + item.file);
-                }
+                const res = await fetch('content/' + item.file);
                 if (!res.ok) throw new Error('File not found: ' + item.file);
                 md = await res.text();
                 cache[item.file] = md;
@@ -785,16 +731,6 @@
             const html = marked.parse(md);
             document.getElementById('reader-content').innerHTML = html;
             document.getElementById('loading').classList.add('hidden');
-
-            // Wrap tables for horizontal scroll on mobile
-            document.querySelectorAll('#reader-content table').forEach(table => {
-                if (!table.parentElement.classList.contains('table-wrapper')) {
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'table-wrapper';
-                    table.parentNode.insertBefore(wrapper, table);
-                    wrapper.appendChild(table);
-                }
-            });
 
             // Highlight code & add copy buttons
             document.querySelectorAll('#reader-content pre').forEach(pre => {
@@ -896,23 +832,6 @@
         // Re-highlight
         document.querySelectorAll('#reader-content pre code').forEach(b => hljs.highlightElement(b));
     }
-
-    // ====================== MOBILE SEARCH TOGGLE ======================
-    function toggleMobileSearch() {
-        const box = document.querySelector('.search-box');
-        box.classList.toggle('mobile-visible');
-        if (box.classList.contains('mobile-visible')) {
-            document.getElementById('searchInput').focus();
-        }
-    }
-    // Show mobile search button on small screens
-    function checkMobileUI() {
-        const btn = document.querySelector('.mobile-search-btn');
-        if (window.innerWidth <= 768) { btn.style.display = 'flex'; }
-        else { btn.style.display = 'none'; document.querySelector('.search-box').classList.remove('mobile-visible'); }
-    }
-    window.addEventListener('resize', checkMobileUI);
-    checkMobileUI();
 
     // ====================== SIDEBAR TOGGLE ======================
     function toggleSidebar() {

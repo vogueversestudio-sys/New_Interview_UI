@@ -1,0 +1,13 @@
+[build]
+  command = "mkdir -p public/content && cp content/*.md public/content/ && npm install && npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
