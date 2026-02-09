@@ -121,6 +121,14 @@ export default function Reader() {
       pre.classList.add('group')
       pre.appendChild(btn)
     })
+    // Wrap tables for horizontal scroll on mobile
+    contentRef.current.querySelectorAll('table').forEach(table => {
+      if (table.parentElement.classList.contains('table-wrap')) return
+      const wrapper = document.createElement('div')
+      wrapper.className = 'table-wrap'
+      table.parentNode.insertBefore(wrapper, table)
+      wrapper.appendChild(table)
+    })
   }, [content])
 
   if (!item) {
