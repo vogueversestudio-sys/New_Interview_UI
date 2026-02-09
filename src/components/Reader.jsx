@@ -61,7 +61,7 @@ export default function Reader() {
     setLoading(true)
     setContent('')
     setReadProgress(0)
-    fetch(`/content/${item.file}`)
+    fetch(`${import.meta.env.BASE_URL}content/${item.file}`)
       .then(r => r.ok ? r.text() : Promise.reject('Not found'))
       .then(md => {
         const lines = md.split('\n')
