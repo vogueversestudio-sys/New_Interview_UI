@@ -15,6 +15,8 @@ const DEFAULT_STATE = {
   dailyGoals: { date: null, goals: [] },
   readingProgress: {},
   name: 'Vikrant',
+  theme: 'dark',
+  readingMode: false,
 }
 
 const LEVELS = [
@@ -132,6 +134,14 @@ export function ProgressProvider({ children }) {
     setState(prev => ({ ...prev, dailyGoals: { date: today, goals } }))
   }, [])
 
+  const setTheme = useCallback((theme) => {
+    setState(prev => ({ ...prev, theme }))
+  }, [])
+
+  const toggleReadingMode = useCallback(() => {
+    setState(prev => ({ ...prev, readingMode: !prev.readingMode }))
+  }, [])
+
   const toggleGoal = useCallback((goalId) => {
     setState(prev => {
       const goals = prev.dailyGoals.goals.map(g =>
@@ -157,6 +167,8 @@ export function ProgressProvider({ children }) {
     setDailyGoals,
     toggleGoal,
     updateStreak,
+    setTheme,
+    toggleReadingMode,
   }
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>

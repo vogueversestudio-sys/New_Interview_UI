@@ -544,6 +544,78 @@
         }
         .table-wrapper table { margin: 0; border: none; }
 
+        /* =========== READING MODE =========== */
+        .reading-mode #sidebar,
+        .reading-mode #sidebar-overlay,
+        .reading-mode #toc-panel,
+        .reading-mode #menu-btn,
+        .reading-mode .search-box,
+        .reading-mode .mobile-search-btn {
+            display: none !important;
+        }
+        .reading-mode #topbar {
+            background: transparent;
+            border-bottom-color: transparent;
+            backdrop-filter: none;
+            justify-content: center;
+            opacity: 0.3;
+            transition: opacity 0.3s, background 0.4s;
+        }
+        .reading-mode #topbar:hover {
+            opacity: 1;
+            background: var(--bg-secondary);
+            border-bottom-color: var(--border-light);
+            backdrop-filter: blur(12px);
+        }
+        .reading-mode #main-content {
+            margin-left: 0 !important;
+        }
+        .reading-mode .reader-container {
+            max-width: 720px;
+        }
+        .reading-mode .reader p,
+        .reading-mode .reader li {
+            font-size: 16.5px;
+            line-height: 2;
+        }
+        .reading-mode .reader h1 {
+            font-size: 1.9rem;
+        }
+        .reading-mode .reader h2 {
+            font-size: 1.5rem;
+        }
+        .reading-mode .reader h3 {
+            font-size: 1.2rem;
+        }
+        .reading-mode .reader pre code {
+            font-size: 14px !important;
+            line-height: 1.8;
+        }
+        .reading-mode .reader blockquote p {
+            font-size: 15.5px;
+        }
+        .reading-mode .chapter-header h1 {
+            font-size: 2.2rem;
+        }
+        .reading-mode #scroll-top {
+            bottom: 24px;
+            right: 24px;
+        }
+        @media (max-width: 768px) {
+            .reading-mode .reader p,
+            .reading-mode .reader li {
+                font-size: 15.5px;
+                line-height: 1.9;
+            }
+        }
+
+        /* Reading mode toggle button glow */
+        .reading-active {
+            background: rgba(99,102,241,0.15) !important;
+            border-color: var(--border-accent) !important;
+            color: var(--text-accent) !important;
+        }
+
         /* =========== UTILITY =========== */
         .hidden { display: none !important; }
     </style>
@@ -583,6 +655,9 @@
 
         <!-- Right actions -->
         <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+            <button class="icon-btn" onclick="toggleReadingMode()" title="Reading mode (Ctrl+R)" id="reading-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </button>
             <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme" id="theme-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="theme-icon-dark">
                     <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
@@ -897,6 +972,16 @@
         document.querySelectorAll('#reader-content pre code').forEach(b => hljs.highlightElement(b));
     }
 
+    // ====================== READING MODE ======================
+    let isReadingMode = false;
+    function toggleReadingMode() {
+        isReadingMode = !isReadingMode;
+        document.body.classList.toggle('reading-mode', isReadingMode);
+        document.getElementById('reading-btn').classList.toggle('reading-active', isReadingMode);
+        // Close sidebar if open
+        if (isReadingMode) closeSidebar();
+    }
+
     // ====================== MOBILE SEARCH TOGGLE ======================
     function toggleMobileSearch() {
         const box = document.querySelector('.search-box');
@@ -944,6 +1029,10 @@
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
             document.getElementById('searchInput').focus();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            e.preventDefault();
+            toggleReadingMode();
         }
         if (e.key === 'Escape') {
             document.getElementById('searchInput').value = '';

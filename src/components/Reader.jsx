@@ -44,7 +44,7 @@ marked.setOptions({
 export default function Reader() {
   const { topicId } = useParams()
   const navigate = useNavigate()
-  const { completedTopics, completeTopic } = useProgress()
+  const { completedTopics, completeTopic, readingMode, theme } = useProgress()
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [readProgress, setReadProgress] = useState(0)
@@ -135,9 +135,11 @@ export default function Reader() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className={`mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-300
+      ${readingMode ? 'max-w-3xl reading-mode' : 'max-w-4xl'}`}>
       {/* Reading progress bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-slate-900">
+      <div className={`fixed top-0 left-0 right-0 h-1 z-50
+        ${theme === 'light' ? 'bg-stone-200' : theme === 'sepia' ? 'bg-amber-100' : 'bg-slate-900'}`}>
         <div
           className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-150"
           style={{ width: `${readProgress}%` }}
@@ -157,7 +159,9 @@ export default function Reader() {
                 Chapter {String(idx + 1).padStart(2, '0')} of {ALL_ITEMS.length}
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-white">{item.label}</h1>
+            <h1 className={`text-xl sm:text-2xl font-extrabold
+              ${theme === 'light' || theme === 'sepia' ? 'text-stone-800' : 'text-white'}
+              ${readingMode ? 'sm:text-3xl' : ''}`}>{item.label}</h1>
             <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
               <span className="flex items-center gap-1"><BookOpen size={12} /> {item.questions} questions</span>
               <span className="flex items-center gap-1"><Clock size={12} /> ~{Math.max(5, Math.round(item.questions * 1.5))} min read</span>
