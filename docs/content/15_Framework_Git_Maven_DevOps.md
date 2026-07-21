@@ -2,6 +2,8 @@
 ## Vikrant Mishra — India 2026 (Noida, Pune, Hyderabad, Bangalore, Gurugram, Dubai)
 ## Companies: Wipro, Capgemini, Accenture, TCS, Infosys, Cognizant, Publicis Sapient
 
+> **Framework questions are the heart of every senior SDET interview.** Interviewers want to see that you DESIGNED the framework, not just used it. Always describe YOUR specific decisions: which design patterns, why those tech choices, how you handle parallel execution and CI/CD. Be ready to draw the folder structure from memory.
+
 ---
 
 # AUTOMATION FRAMEWORK ARCHITECTURE
@@ -9,6 +11,12 @@
 ---
 
 ## Q1. Explain the structure of your automation framework? (Wipro, Capgemini — very frequently asked)
+
+**Simple Answer:**
+My framework is a Hybrid framework combining POM, Data-Driven, and BDD. The `main/java` folder has pages, utils, factory, constants, and listeners. The `test/java` folder has base, tests, and data providers. Test resources contain config.properties, test data files, and JSON schemas. A Jenkinsfile at root connects it to CI/CD.
+
+**💬 How to say it in an interview:**
+> "My Selenium framework is a Hybrid framework using POM for page separation, Data-Driven for externalized test data, and BDD with Cucumber for business-readable scenarios. The key design decision was to have BasePage handle all Selenium interactions — click, type, wait — so test classes never call driver.findElement directly. This makes tests readable as business flows and resilient to Selenium version changes. For CI/CD, I have a Jenkinsfile that takes browser and environment as parameters, so the same framework runs against QA, staging, and production environments."
 
 **Framework Type:** Hybrid Framework (Page Object Model + Data-Driven + BDD)
 
@@ -155,6 +163,12 @@ public class LoginTest extends BaseTest {
 
 ## Q2. How to connect files in Cucumber? What are hooks? (from Screenshot 3)
 
+**Simple Answer:**
+The TestRunner class connects everything — it uses `@CucumberOptions` to point to feature files location (`features`) and step definitions package (`glue`). Hooks are Cucumber lifecycle methods: `@Before` (runs before each scenario), `@After` (runs after each scenario — good for screenshots on failure and driver cleanup). You can make hooks conditional with tags: `@Before("@api")` only runs for API-tagged scenarios.
+
+**💬 How to say it in an interview:**
+> "In my Cucumber framework, the TestRunner is the glue. It's a JUnit/TestNG runner class with @CucumberOptions that tells Cucumber where to find feature files and where the step definition classes are. My Hooks class handles browser setup in @Before and cleanup in @After. The key thing I do in @After is capture a screenshot and attach it to the Cucumber report when a scenario fails — this makes debugging failed scenarios much faster. I also use a conditional @Before hook for API tests to set up the RestAssured base URI."
+
 **Cucumber File Structure:**
 ```
 src/test/
@@ -250,6 +264,12 @@ public class Hooks {
 
 ## Q3. How do you handle flaky test cases? (from Screenshot 3)
 
+**Simple Answer:**
+Flaky test = passes sometimes, fails sometimes. Most common causes: timing issues (fix with explicit waits), shared test data (fix by creating independent data per test), shared WebDriver in parallel (fix with ThreadLocal). Strategy: quarantine flaky tests to a separate suite so they don't block CI, implement TestNG IRetryAnalyzer for max 2 retries, and set a team SLA of < 2% flaky rate.
+
+**💬 How to say it in an interview:**
+> "I treat flaky tests as technical debt — they must be fixed or quarantined, never ignored. The first step is identifying root cause: I add detailed logging around the failure to capture element state, page URL, and network activity. Usually it's a timing issue or a shared state problem. I quarantine confirmed flaky tests by moving them to a quarantine TestNG XML suite so they don't break the CI pipeline, then fix them within the sprint. I track flaky rate as a team metric — our target is below 2%."
+
 **Definition:** A flaky test is one that **passes and fails intermittently** without any code change.
 
 **Root Causes & Fixes:**
@@ -278,6 +298,12 @@ public class Hooks {
 ---
 
 ## Q4. Explain Maven lifecycle? (from Screenshot 3 — frequently asked)
+
+**Simple Answer:**
+Maven lifecycle: validate → compile → test → package → verify → install → deploy. Each phase runs all previous phases first. `mvn clean test` = most common SDET command. `mvn test -Dtest=LoginTest` = run specific class. `mvn test -DsuiteXmlFile=testng-smoke.xml` = run specific TestNG suite. Key sections in pom.xml: `<dependencies>` for libraries, `<plugins>` for maven-surefire-plugin (connects TestNG), `<profiles>` for smoke/regression/staging environments.
+
+**💬 How to say it in an interview:**
+> "For my Selenium framework, the key Maven configuration is the maven-surefire-plugin — it's what connects Maven to TestNG. I configure it to point to testng.xml, and I pass the suite file name as a system property so Jenkins can switch between smoke, regression, and full suites without changing the pom.xml. I also use Maven profiles to manage environment-specific configs — mvn test -Pstaging runs against the staging URL, -Pproduction runs against prod."
 
 **Maven Build Lifecycle Phases:**
 
@@ -399,6 +425,9 @@ mvn allure:serve
 
 ## Q5. Git commands you use daily? (from Screenshot 3 — very frequently asked)
 
+**Simple Answer:**
+Daily workflow: `git pull origin develop` → `git checkout -b feature/JIRA-123-login-tests` → code → `git add .` → `git commit -m "feat: add login automation tests"` → `git push origin feature/JIRA-123-login-tests` → raise PR. Other important commands: `git stash` to save work-in-progress, `git log --oneline -10` to check recent commits, `git diff --staged` to review changes before commit.
+
 ```bash
 # --- BASIC COMMANDS ---
 git init                          # Initialize new repo
@@ -467,6 +496,14 @@ git push origin --tags            # Push all tags
 
 ## Q6. Git merge vs rebase? How do you handle merge conflicts? (from Screenshot 3)
 
+**Simple Answer:**
+- **Merge** = combine branches, preserves commit history, creates a merge commit. Safe for shared branches.
+- **Rebase** = replay your commits on top of another branch, creates linear history. Only use on YOUR private feature branch. Never rebase shared/public branches.
+- **Conflicts** = when two branches changed the same line. Git marks them with `<<<<<<<`. You edit the file to keep the right version, then `git add` + `git commit`.
+
+**💬 How to say it in an interview:**
+> "My team uses a GitFlow strategy. I create feature branches from develop, work on them, and raise a PR back to develop. For day-to-day updates, I use rebase to keep my feature branch up to date with develop — this keeps a clean linear history. For conflicts, I always use IntelliJ's merge tool — it shows three panes (mine, theirs, result) which makes resolving conflicts much cleaner than editing raw conflict markers."
+
 **Merge vs Rebase:**
 
 | Aspect | Merge | Rebase |
@@ -529,6 +566,9 @@ git push origin feature/login
 
 ## Q7. Git branching strategy in your project?
 
+**Simple Answer:**
+My team uses GitFlow: `main` (production), `develop` (integration), `feature/*` branches (one per JIRA ticket), `release/*` (release prep), `hotfix/*` (emergency production fix). Feature branches merge to develop via PR after code review. Release branch merges to both main and develop. This gives clear separation between stable production code and ongoing development.
+
 **GitFlow (most common in Indian IT companies):**
 
 ```
@@ -559,6 +599,12 @@ main ─────────────────────────
 ---
 
 ## Q8. Explain CI/CD integration of test automation in Jenkins/GitHub Actions? (Wipro — Screenshot 2)
+
+**Simple Answer:**
+CI/CD pipeline for tests: Checkout code → Build → Run Tests → Generate Report → Notify. In Jenkins, I use a Declarative Jenkinsfile with parameterized builds (browser, environment, test suite). The pipeline runs `mvn clean test` with the right parameters. On success, publish the Allure report. On failure, send email/Slack notification. For GitHub Actions, use the `workflow.yml` with matrix testing across multiple browsers.
+
+**💬 How to say it in an interview:**
+> "In my current project, tests run automatically on every PR via GitHub Actions. I have a workflow that installs Java 17, runs mvn clean test with Chrome, and publishes the Allure report as an artifact. For Jenkins, I set up a parameterized pipeline so QA leads can trigger regression against any environment with any browser from the Jenkins dashboard. The key decision was making the test suite parameterizable — the same Jenkinsfile handles smoke (10 min), regression (4 hours), and full runs."
 
 **Jenkins Pipeline (Declarative):**
 
@@ -766,6 +812,12 @@ mvn test -Dselenium.grid.url=http://localhost:4444
 
 ## Q10. What is Page Object Model (POM) and how do you implement it? (Wipro — Screenshot 2)
 
+**Simple Answer:**
+POM = one Java class per web page. The class has private locators (WebElements) and public action methods. Tests call page methods, never interact with locators directly. Benefits: if a locator changes, update ONE place. Tests read as business actions, not selenium commands. Always extend BasePage so all pages share common methods.
+
+**💬 How to say it in an interview:**
+> "POM is the foundation of my framework. Each web page has a corresponding Java class. Locators are private fields, action methods are public. My test reads as: loginPage.login('admin', 'pass123') — it looks like a business action. When the dev changes the password field ID, I update it in one place in LoginPage.java and all 15 tests that use login still work. The key enhancement I made is returning the next page object from action methods — so login() returns a DashboardPage object, enabling fluent method chaining in tests."
+
 **POM Principles:**
 1. Each **web page** = separate **Java class**
 2. **Locators** are defined as class variables (private)
@@ -895,6 +947,11 @@ A **Sprint Retrospective** is a meeting held at the **end of each sprint** where
 ---
 
 ## Q13. What is the difference between Smoke Testing vs Sanity Testing vs Regression Testing?
+
+**Simple Answer:**
+- **Smoke** = broad, shallow check that the build is not broken. Run after EVERY deployment. "Does login work? Does the homepage load?"
+- **Sanity** = narrow, deep check of a specific fix or feature. Run after a bug fix. "Is this specific login bug fixed?"
+- **Regression** = complete test run to ensure nothing is broken by recent changes. Run before every release.
 
 | Aspect | Smoke Testing | Sanity Testing | Regression Testing |
 |--------|--------------|----------------|-------------------|

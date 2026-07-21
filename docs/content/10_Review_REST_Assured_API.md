@@ -1,6 +1,8 @@
 # REST Assured / API Testing Interview Questions
 ## Vikrant Mishra — SDET Interview Prep
 
+> **Why API Testing matters for SDETs:** API testing is faster, more stable, and closer to the business logic than UI testing. At Aflac and PersonifyHealth, about 60% of my automation was API testing. Interviewers will ask you to explain REST Assured syntax, HTTP methods, status codes, and authentication. Know these well.
+
 ---
 
 # API FUNDAMENTALS
@@ -8,6 +10,18 @@
 ---
 
 ## Q1. What is an API?
+
+**Simple Answer:**
+An API (Application Programming Interface) is a way for two software systems to talk to each other. In web development, an API is a URL (endpoint) that your application calls to get data or perform actions. Think of it as a waiter at a restaurant — you give the waiter an order (request), they go to the kitchen (server), and bring back your food (response).
+
+**💬 How to say it in an interview:**
+> "An API is an interface that allows two systems to communicate. In my work, I test REST APIs extensively — at PersonifyHealth, the backend exposes REST APIs that the mobile and web apps consume. My job as an SDET is to test those APIs directly using REST Assured — verifying that they return the correct data, the right status codes, and respond within the expected time."
+
+**⚡ Key Points:**
+- REST is the most common API type — uses HTTP, returns JSON
+- SOAP is older, enterprise-grade, uses XML only
+- GraphQL = client specifies exactly what data it needs
+- gRPC = high-performance binary protocol, used in microservices
 
 **API (Application Programming Interface)** is a computing interface that enables communication and data exchange between two separate software systems.
 
@@ -28,6 +42,9 @@
 
 ## Q2. API vs Web Services?
 
+**Simple Answer:**
+All web services are APIs, but not all APIs are web services. A web service always requires a network/internet. An API can be a local library, a function call, or a web service. In interviews, just say: web services are a subset of APIs that always use a network.
+
 | Aspect | API | Web Service |
 |--------|-----|-------------|
 | Scope | Broader — includes local APIs, library APIs | Subset of APIs |
@@ -38,6 +55,12 @@
 ---
 
 ## Q3. URL Components?
+
+**Simple Answer:**
+A URL has 4 main parts: Protocol (https), Domain (reqres.in), Resource/Endpoint (/api/users), and Parameters (path params for specific resources like /2, query params for filtering like ?page=2). Knowing URL anatomy is essential for writing REST Assured tests.
+
+**💬 How to say it in an interview:**
+> "I always break down a URL into its components when writing test cases. The base URL is protocol + domain. Path parameters identify a specific resource — like /users/2 means user with ID 2. Query parameters are used for filtering and sorting — like ?page=2&sort=name. In REST Assured, I set the baseUri once in the RequestSpecification, then just write the path per test."
 
 ```
 https://reqres.in/api/users/2?page=2&per_page=5
@@ -67,6 +90,19 @@ Base URL = Protocol + Domain = https://reqres.in
 
 ## Q4. HTTP Methods for API testing?
 
+**Simple Answer:**
+The 5 main HTTP methods: GET (fetch data), POST (create new), PUT (replace entire resource), PATCH (update part of resource), DELETE (remove). The most commonly tested are GET and POST. Idempotent means calling it multiple times has the same result as calling it once — GET, PUT, and DELETE are idempotent; POST is not.
+
+**💬 How to say it in an interview:**
+> "In my API testing, I write tests for all HTTP methods. GET tests verify data is returned correctly — right status code 200, correct JSON structure, correct values. POST tests verify creation — status 201, ID is returned in response, and the record actually exists in the database. DELETE tests verify status 204 (No Content). I always include both positive and negative tests for each endpoint."
+
+**⚡ Key Points:**
+- GET = read only, no body, safe and idempotent
+- POST = create, has body, NOT idempotent (calling twice creates two records)
+- PUT = full replace, must send all fields
+- PATCH = partial update, send only changed fields
+- DELETE = remove, returns 204 No Content on success
+
 | Method | Purpose | Request Body | Idempotent | Safe |
 |--------|---------|-------------|------------|------|
 | **GET** | Retrieve data | No | Yes | Yes |
@@ -78,6 +114,12 @@ Base URL = Protocol + Domain = https://reqres.in
 | **HEAD** | Like GET but no body (headers only) | No | Yes | Yes |
 
 ## Q5. PUT vs PATCH?
+
+**Simple Answer:**
+PUT replaces the ENTIRE resource — you must send all fields. PATCH updates ONLY the fields you send — everything else stays unchanged. Use PATCH when you only want to change one or two fields.
+
+**💬 How to say it in an interview:**
+> "PUT and PATCH both update resources but differently. PUT is a full replacement — if I send a PUT with just the name field, all other fields like email and role get wiped. PATCH is safer for partial updates — I only send the field I want to change. At Aflac, when updating a policy status, we used PATCH because we only needed to change the status field, not the entire policy object."
 
 | Aspect | PUT | PATCH |
 |--------|-----|-------|
@@ -101,6 +143,11 @@ Base URL = Protocol + Domain = https://reqres.in
 ---
 
 # HTTP STATUS CODES
+
+> **Study Tip:** Memorise the groups first: 2xx = success, 4xx = client error (your fault), 5xx = server error (their fault). Then memorise the specific codes: 200, 201, 204, 400, 401, 403, 404, 500.
+
+**Simple Answer:**
+HTTP Status Codes tell you what happened with your request. As an SDET, you MUST know these because every API test asserts a status code. The most important ones: 200 (success), 201 (created), 204 (deleted), 400 (bad request), 401 (not logged in), 403 (no permission), 404 (not found), 500 (server crashed).
 
 | Code | Meaning | When You See It |
 |------|---------|-----------------|
@@ -137,6 +184,19 @@ Base URL = Protocol + Domain = https://reqres.in
 
 ## Q6. What is REST Assured?
 
+**Simple Answer:**
+REST Assured is a Java library for API testing. It uses a BDD-style syntax (Given-When-Then) that makes tests readable. Instead of writing raw HTTP client code, you write clean readable test steps. It integrates with TestNG, Maven, and Jenkins.
+
+**💬 How to say it in an interview:**
+> "REST Assured is my primary tool for API testing. I use it because it has a clean BDD syntax — Given sets up the request, When sends it, Then validates the response. It integrates perfectly with TestNG and Maven, supports all HTTP methods, has built-in JSON and XML parsing via JsonPath, and supports all authentication types. At PersonifyHealth, I built a full API test framework using REST Assured with RequestSpecBuilder for shared configuration — base URL, headers, and auth token set once and reused across all tests."
+
+**⚡ Key Points:**
+- REST Assured = Java library for API testing (not a standalone tool)
+- BDD syntax: given() → when() → then()
+- Built-in JSON parsing via JsonPath
+- Supports Basic Auth, Bearer Token, OAuth 2.0
+- Integrates with TestNG, JUnit, Maven, Jenkins
+
 REST Assured is an **open-source Java library** used for testing and **validating** REST APIs / RESTful web services. Key features:
 - Supports BDD syntax: **Given → When → Then**
 - Validates HTTP responses (status code, headers, body, response time)
@@ -150,6 +210,12 @@ REST Assured is an **open-source Java library** used for testing and **validatin
 ---
 
 ## Q7. REST Assured BDD Syntax?
+
+**Simple Answer:**
+REST Assured follows the BDD pattern: `given()` is where you set up the request (headers, auth, body), `when()` is where you send the request (GET, POST, etc.), and `then()` is where you validate the response (status code, body, headers).
+
+**💬 How to say it in an interview:**
+> "The BDD syntax in REST Assured makes tests self-documenting. given() is the precondition — I set the base URL, headers like Content-Type and Authorization, and the request body. when() is the action — I call .post(), .get(), etc. then() is the assertion — I verify status code, response body fields, response time. I always add .log().ifValidationFails() so I only see the request/response details when something goes wrong, not for every test."
 
 ```java
 import static io.restassured.RestAssured.*;
@@ -176,6 +242,9 @@ given()       // PRECONDITION: setup request
 ---
 
 ## Q8. GET, POST, PUT, PATCH, DELETE examples?
+
+**Simple Answer:**
+These are the 5 HTTP method examples in REST Assured. The most frequently asked in interviews are GET (status 200, extract and verify JSON) and POST (status 201, verify created resource). Study these code patterns — you may be asked to write them.
 
 ```java
 // GET Request
@@ -269,6 +338,19 @@ public void testDeleteUser() {
 
 ## Q9. How to validate response?
 
+**Simple Answer:**
+In API testing, you validate: status code (most important), response body fields (specific values), response headers (Content-Type), and response time (SLA). REST Assured lets you do all of this in the `.then()` block. For complex validations, extract the response object and use JsonPath.
+
+**💬 How to say it in an interview:**
+> "My standard API validation checks four things: status code, body values, response headers, and response time. I use Hamcrest matchers in the then() block for inline assertions — equalTo(), notNullValue(), containsString(), greaterThan(). For complex JSON like nested objects or arrays, I extract the response and use jsonPath() to navigate the structure. I also validate JSON Schema for critical endpoints — this ensures the API contract never breaks even if individual values change."
+
+**⚡ Key Points:**
+- Always assert status code first
+- Use JsonPath for extracting nested values
+- Use JSON Schema validation for contract testing
+- Assert response time < SLA (usually 2000ms)
+- Use Hamcrest matchers: equalTo, notNullValue, containsString, hasSize
+
 ```java
 Response response = given().baseUri("https://reqres.in").get("/api/users/2");
 
@@ -315,6 +397,12 @@ given().get("/api/users?page=2")
 
 ## Q10. Headers in API?
 
+**Simple Answer:**
+Headers are additional information sent alongside the HTTP request or response. The most important request headers: `Content-Type` (tells the server what format your body is in), `Authorization` (your authentication token), `Accept` (what format you want back). Think of headers as the envelope information — they describe the message without being the message itself.
+
+**💬 How to say it in an interview:**
+> "Headers are metadata that describe the request. The two I always set in my API tests are Content-Type: application/json (so the server knows I'm sending JSON) and Authorization with the Bearer token (for authenticated endpoints). In REST Assured, I set these once in a RequestSpecification and reuse it across all tests. I also validate response headers — particularly Content-Type to ensure the API is returning JSON and not HTML."
+
 **Headers** are metadata sent with HTTP requests/responses as key-value pairs.
 
 **Common Request Headers:**
@@ -354,7 +442,13 @@ given()
 
 ## Q11. Payload / Request Body?
 
-The **Payload/Body** contains the data sent to the server with POST, PUT, PATCH requests.
+**Simple Answer:**
+The payload (request body) is the data you send to the server with POST, PUT, and PATCH requests. The best approach for complex payloads is to use a POJO class — it auto-serialises to JSON and is easy to reuse and maintain.
+
+**💬 How to say it in an interview:**
+> "For simple payloads I use a String or HashMap. For complex payloads, I always use POJO classes with Jackson serialisation. I create a model class that mirrors the API request structure, set its fields, and pass it to .body(). REST Assured with Jackson automatically converts it to JSON. This approach is much cleaner than building a JSON string manually — no escaping issues, easy to read, and reusable across tests."
+
+**The Payload/Body** contains the data sent to the server with POST, PUT, and PATCH requests.
 
 **6 Ways to Pass Payload:**
 
@@ -398,6 +492,20 @@ given()
 ---
 
 ## Q12. Authentication vs Authorization?
+
+**Simple Answer:**
+- **Authentication (AuthN)** = proving WHO you are (login with username/password)
+- **Authorization (AuthZ)** = what you are ALLOWED to do (admin can delete, user can only read)
+- Authentication always happens FIRST. Authorization happens after.
+
+**💬 How to say it in an interview:**
+> "Authentication and Authorization are different concepts that often get confused. Authentication is about identity — are you who you say you are? That's the login step. Authorization is about permissions — you're logged in, but do you have permission to delete this record? In my API tests, I test both: I have positive tests with valid credentials (201 or 200), negative tests with no credentials (401 Unauthorized), and negative tests with valid credentials but insufficient permissions (403 Forbidden). These are called security-layer tests."
+
+**⚡ Key Points:**
+- 401 = Not authenticated (no token or invalid token)
+- 403 = Authenticated but not authorised (valid token, wrong role)
+- AuthN happens before AuthZ
+- Most modern APIs use Bearer Token (JWT) for authentication
 
 | Aspect | Authentication (AuthN) | Authorization (AuthZ) |
 |--------|----------------------|---------------------|
@@ -449,6 +557,9 @@ given()
 
 ## Q13. Cookies in REST Assured?
 
+**Simple Answer:**
+Cookies are small pieces of data the server sends to the client, and the client sends back on every request. In API testing, you might need to pass a session cookie for authenticated requests, or extract a cookie from a login response and reuse it. REST Assured handles this with SessionFilter or manual cookie extraction.
+
 ```java
 // SEND cookies with request
 given()
@@ -481,6 +592,18 @@ given().filter(session)
 
 ## Q14. Positive vs Negative API scenarios?
 
+**Simple Answer:**
+Positive scenarios test that the API works correctly with valid input. Negative scenarios test that the API handles invalid/missing/wrong input gracefully — with the correct error status codes and meaningful error messages. As an SDET, you need BOTH. Interviewers always ask about this.
+
+**💬 How to say it in an interview:**
+> "For every endpoint I test, I write both positive and negative scenarios. Positive: valid request returns 200/201 with correct data. Negative: missing required field returns 400, no auth returns 401, wrong permissions returns 403, non-existent ID returns 404. At Aflac, I also tested boundary conditions — what happens with an extremely long string? What about SQL injection in a query parameter? The API should return 400, not expose database errors."
+
+**⚡ Key Points:**
+- Positive = valid input, verify correct response (200/201)
+- Negative = invalid input, verify correct error code (400, 401, 403, 404)
+- Always test: missing fields, wrong data types, no auth, expired token
+- Security tests: SQL injection, extra-long strings should return 400 not 500
+
 **Positive Scenarios:**
 | # | Scenario | Validation |
 |---|----------|------------|
@@ -508,6 +631,12 @@ given().filter(session)
 ---
 
 ## Q15. Logging in API testing?
+
+**Simple Answer:**
+REST Assured has built-in logging. The most useful option is `.log().ifValidationFails()` — it only logs the request and response when a test fails, keeping your console clean during passing tests.
+
+**💬 How to say it in an interview:**
+> "REST Assured's built-in logging is very powerful. I always add .log().ifValidationFails() to my tests so that when a test passes, the console is clean. When it fails, I get the full request and response automatically. For debugging, I temporarily switch to .log().all() to see everything. In my RequestSpecBuilder, I add a ResponseLoggingFilter so failures always show the full response regardless of what the test is checking."
 
 REST Assured has **built-in logging** — you don't need Log4j for basic API logging.
 
@@ -545,6 +674,18 @@ RequestSpecification spec = new RequestSpecBuilder()
 ---
 
 ## Q16. JSON Schema Validation?
+
+**Simple Answer:**
+JSON Schema validation checks that the API response STRUCTURE is correct — it verifies that required fields exist, that field types are correct (id should be integer, email should be string), and that the overall shape of the JSON matches a defined contract. This is called contract testing.
+
+**💬 How to say it in an interview:**
+> "JSON Schema validation is a level above just checking individual values. It validates the entire API contract — all required fields are present, all types are correct. At PersonifyHealth, after a backend release, the API contract could change without notice. I added JSON Schema validation to catch these breaking changes early. If a developer accidentally renames 'user_id' to 'userId', the schema validation catches it immediately in the test run, even if the values seem fine."
+
+**⚡ Key Points:**
+- Schema validation = contract testing (structure check, not just value check)
+- Catches breaking changes early (renamed fields, changed types)
+- Schema file is stored in src/test/resources/schemas/
+- Use `JsonSchemaValidator.matchesJsonSchemaInClasspath()`
 
 ```java
 // Add dependency in pom.xml:
@@ -588,6 +729,12 @@ public void testJsonSchema() {
 
 ## Q17. JsonPath in REST Assured?
 
+**Simple Answer:**
+JsonPath is how you extract values from a JSON response. Use dot notation to navigate the structure: `data.first_name` gets the first_name field inside the data object. For arrays, use `data[0].email` to get the first element's email.
+
+**💬 How to say it in an interview:**
+> "I use JsonPath extensively to extract and validate specific fields from API responses. The syntax is like XPath but for JSON. For nested objects I use dot notation, for arrays I use index notation. The Groovy-based expressions like data.find{it.id==7} are powerful for filtering arrays — I use them when I need to find a specific object in an array without looping."
+
 ```java
 Response response = given().get("https://reqres.in/api/users?page=2");
 
@@ -612,6 +759,13 @@ response.jsonPath().getInt("data.size()");
 ---
 
 ## Q18. Error vs Exception in API testing?
+
+**Simple Answer:**
+- **Error** in API testing = the server returned an error status code (4xx or 5xx) — this is expected and testable
+- **Exception** = something went wrong in your test code itself (network timeout, JSON parse error) — this is unexpected and needs to be handled in code
+
+**💬 How to say it in an interview:**
+> "In API testing, I distinguish between API errors and test exceptions. An API error is intentional — I send bad data and expect a 400 response. That's a test assertion, not a failure. A test exception is unplanned — the server is down, the network timed out, or the response JSON is malformed and can't be parsed. For those, I use try-catch in my test setup and fail the test with a meaningful message like 'Server unreachable — check environment' rather than a cryptic NullPointerException."
 
 | Aspect | Error | Exception |
 |--------|-------|-----------|
@@ -642,6 +796,9 @@ try {
 ---
 
 ## Q19. Can you write an HTTP request without a URL or HTTP method?
+
+**Simple Answer:**
+No. Every HTTP request needs both. A URL tells the server WHERE to send the request. An HTTP method tells the server WHAT to do. Without either, the request is incomplete and cannot be sent.
 
 **Without URL:** No. Every HTTP request requires a target address. Tools like telnet still need a host:port. In REST Assured, `baseUri` or full URL is mandatory.
 
