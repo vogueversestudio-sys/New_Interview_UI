@@ -35,16 +35,9 @@ My core strengths are Selenium WebDriver, Playwright, REST Assured, Java, Python
 ## Q1. What is Agile Methodology?
 
 **Simple Answer:**
+Agile mathology-Agile is an process thats managing projects and developing software that makes it easier for teams to deliver value product to their customers
 Agile is a way of building software in small pieces (called sprints), instead of building everything at once. The team delivers working software every 2–4 weeks, gets feedback, and improves continuously.
 
-**Detailed Explanation:**
-Agile is an iterative and incremental approach to software development that emphasises flexibility, collaboration, and customer satisfaction. Instead of delivering the entire product at the end of 6–12 months (like in Waterfall), Agile delivers working software in small, frequent cycles called **sprints** (typically 2 weeks).
-
-**Agile Manifesto — 4 Core Values:**
-1. **Individuals and interactions** over processes and tools
-2. **Working software** over comprehensive documentation
-3. **Customer collaboration** over contract negotiation
-4. **Responding to change** over following a fixed plan
 
 **SDLC Phases (Software Development Life Cycle):**
 1. Requirement Gathering & Analysis
@@ -63,53 +56,19 @@ Agile is an iterative and incremental approach to software development that emph
 5. Test Execution — run the tests
 6. Test Cycle Closure — defect summary, lessons learned
 
-**💬 How to say it in an interview:**
-> "In all my projects — whether it was Office Depot, Aflac, or PersonifyHealth — we followed Agile/Scrum with 2-week sprints. Instead of doing all the testing at the end, I was involved from day one — reviewing requirements, writing test cases during the sprint, and automating regression tests in parallel with development. This helped us catch issues early and deliver quality software every sprint."
-
-**⚡ Key Points:**
-- Agile = iterative + incremental delivery
-- Sprint = 2-week development cycle
-- SDLC = full software lifecycle; STLC = testing portion within SDLC
-- In Agile, testing is NOT done at the end — it happens throughout the sprint
-
 ---
 
 ## Q2. Types of Agile Methodology?
 
 **Simple Answer:**
-There are different ways to "do" Agile. The most popular in software teams is **Scrum**. Others like Kanban, SAFe, and XP are used depending on team size and project type.
-
-**Scrum (Most Common):**
-- Work divided into **sprints** (2-week cycles)
-- Roles: **Product Owner**, **Scrum Master**, **Development Team**
-- Artifacts: **Product Backlog**, **Sprint Backlog**, **Increment**
-- Ceremonies: Sprint Planning → Daily Standup → Sprint Review → Retrospective
-
-**Kanban:**
-- No fixed sprints — work flows continuously
-- Visual board: To Do → In Progress → Testing → Done
-- Focus on **limiting Work In Progress (WIP)** to avoid overload
-- Best for: maintenance teams, support work, bug-fix teams
-
-**SAFe (Scaled Agile Framework):**
-- For large companies with 10+ teams working together
-- Coordinates multiple Scrum teams under one program
-
-**XP (Extreme Programming):**
-- Emphasises pair programming, Test-Driven Development (TDD), continuous integration
-- Very engineering-focused
-
-**Lean:**
-- Eliminate waste, deliver value faster
-- Remove steps in the process that don't add value
-
-**💬 How to say it in an interview:**
-> "In all my projects, we used Scrum. We had 2-week sprints with the standard ceremonies — planning at the start, daily standups, demo at the end, and retrospective to improve. At PersonifyHealth, I also worked with Kanban for our bug-fix pipeline where issues came in continuously and we needed to prioritise without fixed sprint boundaries."
-
-**⚡ Key Points:**
-- Scrum = most used in product teams; sprints, roles, ceremonies
-- Kanban = flow-based, good for support/maintenance
-- Always say which methodology YOUR team used
+The most popular in software teams is Scrum. Others like Kanban, SAFe(Scaled Agile Framework), and XP are used depending on team size and project type.
+Scrum- 
+1.Scrum is a popular agile methodology that provides a framework for managing and completing complex projects.	
+2.Work is divided into 2-week sprints with roles including the Product Owner, Scrum Master, and Development Team; artifacts include the Product Backlog, Sprint Backlog, and Increment; ceremonies follow the sequence: Sprint Planning → Daily Standup → Sprint Review → Sprint Retrospective.
+Kanban-
+1-Kanban is another agile methodology that focuses on one task before starting another.
+2-The goal of Kanban is to create a smooth and continuous flow of work.
+3-Work flows continuously without fixed sprints using a visual board (To Do → In Progress → Testing → Done), focuses on limiting Work In Progress (WIP) to prevent overload, and is best suited for maintenance, support, and bug-fix teams
 
 ---
 
@@ -118,55 +77,17 @@ There are different ways to "do" Agile. The most popular in software teams is **
 **Simple Answer:**
 A 15-minute meeting held every morning where each team member answers 3 questions: what I did yesterday, what I'll do today, and any blockers. It keeps the whole team in sync.
 
-**Detailed Explanation:**
-A daily stand-up (also called **daily scrum**) is a **15-minute time-boxed** meeting held every day. Each team member answers:
-
-1. **What did I do yesterday?** — tasks completed
-2. **What will I do today?** — planned work
-3. **Are there any blockers?** — anything stopping progress
-
-**Key rules:**
-- Maximum **15 minutes** — keep it tight
-- It is **not** a status report to the manager — it is team synchronisation
-- Scrum Master facilitates and helps remove blockers
-- Detailed discussions happen AFTER the standup, not during it
-
 **As a Senior SDET, what I typically report:**
 - How many test cases I wrote or automated yesterday
 - Which test run results I am investigating
 - Any environment issues, test data problems, or API failures blocking testing
 - Defect trends from the latest regression run
 
-**💬 How to say it in an interview:**
-> "Every morning we had a 15-minute standup. I would report on automation progress — for example, 'Yesterday I finished automating the checkout flow, today I am working on the payment API tests, and I have a blocker — the staging environment is down.' This kept the team aware of testing status in real time. If there was a test environment issue, the Scrum Master would escalate it immediately so it didn't block us for the whole day."
-
-**⚡ Key Points:**
-- 15 minutes, 3 questions: Yesterday / Today / Blockers
-- It is for team sync, not manager updates
-- As SDET — report test status, automation progress, environment issues
-
 ---
+## Q4. Design patterns?
+Design patterns are a set of reusable solutions to common problems that arise during the design and development of software
+in test automation, popular patterns include Page Object Model (POM), Factory Pattern, and Singleton Pattern to improve code maintainability, reusability, and scalability.
 
-## Q4. Scrum Roles?
-
-**Simple Answer:**
-In Scrum, there are 3 roles: the Product Owner decides WHAT to build, the Scrum Master makes sure the PROCESS runs smoothly, and the Development Team (which includes SDETs) does the actual work.
-
-**Detailed Explanation:**
-
-| Role | Responsibility | Real Example |
-|------|---------------|-------------|
-| **Product Owner** | Owns the Product Backlog, defines feature priorities, represents business/customer needs | At Office Depot, the PO prioritised the checkout automation story because it was blocking a release |
-| **Scrum Master** | Facilitates all ceremonies, removes blockers, protects the team from distractions, coaches on Agile | When our test environment was down for 2 days, the SM escalated it to DevOps immediately |
-| **Development Team** | Cross-functional team — developers, SDETs, designers — all together delivering the sprint goal | I was part of the dev team as the SDET, writing automation in parallel with the devs coding |
-
-**💬 How to say it in an interview:**
-> "I worked directly with all three roles. The Product Owner would clarify acceptance criteria with me during backlog grooming. The Scrum Master helped unblock me when environments were down or when I needed access to test data. And as part of the development team, I was responsible not just for testing but also for defining what 'done' means from a quality perspective — meaning automation must be written and passing before a story is considered complete."
-
-**⚡ Key Points:**
-- PO = WHAT to build (business priorities)
-- SM = HOW the process runs (facilitator, blocker remover)
-- Dev Team = WHO builds it (devs + SDETs + designers together)
 
 ---
 
@@ -199,13 +120,6 @@ In Scrum, there are 3 roles: the Product Owner decides WHAT to build, the Scrum 
 - Output: Action items to make the next sprint better
 - As SDET: I raise issues like flaky tests, missing test data, late requirement changes
 
-**💬 How to say it in an interview:**
-> "Sprint Planning was critical for me as an SDET because that's where I estimated testing effort. For a checkout flow story, I would say it needs 5 story points from a testing perspective — 2 for writing test cases and 3 for automation. In the Sprint Review, I would show the Jenkins test execution report. In Retros, I often raised concerns about requirement changes happening mid-sprint which caused automation rework — and we eventually implemented a rule that stories without finalised acceptance criteria wouldn't be picked up."
-
-**⚡ Key Points:**
-- Planning = commit to sprint scope; Review = demo to stakeholders; Retro = team improvement
-- As SDET, your input matters in ALL three
-- Always give real examples from your work when answering this
 
 ---
 
@@ -218,26 +132,8 @@ A user story is a requirement written from the user's perspective in plain Engli
 
 **Example:** `"As a customer, I want to reset my password, so that I can regain access to my account."`
 
-**Components of a Good User Story:**
-- **Acceptance Criteria** — the exact conditions that must pass for the story to be marked Done
-- **Story Points** — effort estimate agreed by the team
-- **Priority** — set by the Product Owner
-
-**INVEST Criteria — What Makes a Good User Story:**
-- **I**ndependent — can be developed without depending on another story
-- **N**egotiable — open to discussion before being finalised
-- **V**aluable — delivers real value to the user
-- **E**stimable — team can estimate the effort involved
-- **S**mall — can be completed within one sprint
-- **T**estable — has clear acceptance criteria that can be verified
-
 **💬 How to say it in an interview:**
 > "As an SDET, I work very closely with user stories. During backlog grooming, I review the acceptance criteria and ask questions like — 'What happens if the user enters an invalid email format?' or 'Is there a character limit on this field?' These edge cases often get missed by developers if the QA doesn't raise them early. I also make sure every story has testable acceptance criteria before it enters the sprint — because if you can't test it, you can't say it's Done."
-
-**⚡ Key Points:**
-- User story format: As a [role], I want [feature], so that [benefit]
-- Acceptance criteria = what you test against
-- SDET's job: make sure stories are testable BEFORE the sprint starts
 
 ---
 
@@ -245,31 +141,7 @@ A user story is a requirement written from the user's perspective in plain Engli
 
 **Simple Answer:**
 Story points are a way to measure how much effort a task takes — not in hours, but in relative complexity. A task worth 3 points is roughly 3x harder than a 1-point task.
-
-**Detailed Explanation:**
 Story points consider three things: **complexity**, **volume of work**, and **uncertainty/risk**. Teams use the **Fibonacci scale**: 1, 2, 3, 5, 8, 13, 21 — because as work gets bigger, our estimates get less precise.
-
-| Points | What It Means | Example Task |
-|--------|--------------|-------------|
-| 1 | Trivial | Change a button label |
-| 2 | Simple | Add a new input field with validation |
-| 3 | Medium | Build a login form with error handling |
-| 5 | Complex | Payment flow with third-party API |
-| 8 | Very complex | End-to-end checkout with multiple payment methods |
-| 13+ | Too big — break it down | Entire user registration module |
-
-**Planning Poker:**
-The whole team votes simultaneously using cards. If estimates differ widely (e.g., one person says 3, another says 13), the team discusses the reasoning and re-votes until they reach consensus.
-
-**How I estimate as an SDET:**
-- Number of positive and negative test scenarios
-- Automation feasibility — how complex is the UI/API?
-- Test data setup effort (do I need to create accounts, seed data?)
-- Number of integrations involved (third-party APIs, databases)
-- Environment dependencies (does staging even support this feature?)
-
-**💬 How to say it in an interview:**
-> "I actively participate in story point estimation. For example, at Aflac, the payment gateway story was estimated at 5 story points by the developer, but I argued for 8 because from a testing perspective it had 12 different scenarios — valid cards, declined cards, expired cards, network timeouts, partial payments — and the test data setup was complex. We settled on 8. Story points help the team understand that testing effort is not the same as development effort — sometimes testing is MORE complex."
 
 **⚡ Key Points:**
 - Story points = effort, not time
@@ -285,28 +157,9 @@ The whole team votes simultaneously using cards. If estimates differ widely (e.g
 - **Verification** = checking the work WHILE building — "Are we following the process correctly?"
 - **Validation** = checking the final product — "Does it actually work for the user?"
 
-**Detailed Explanation:**
-
-| Aspect | Verification | Validation |
-|--------|-------------|------------|
-| The key question | "Are we building the product **right**?" | "Are we building the **right** product?" |
-| Focus | Process and documents | Final working product |
-| When it happens | During development | After development |
-| Methods used | Reviews, walkthroughs, inspections, code reviews | Functional testing, integration testing, UAT |
-| Real example | Reviewing test cases before execution | Running the actual tests against the application |
-| Also known as | **Static testing** | **Dynamic testing** |
-
-**Real Example:**
-- **Verification:** Before I run any tests, I review my test cases against the requirements to make sure I've covered all acceptance criteria — that's verification.
-- **Validation:** When I actually execute those test cases against the application and check that the features work correctly — that's validation.
-
 **💬 How to say it in an interview:**
 > "I do both verification and validation in my work. Verification happens when I review requirements and test cases before execution — I'm checking that we have the right coverage and the right approach. Validation happens when I actually run the tests and verify the software does what the user needs. For example, at PersonifyHealth, during sprint review I would verify that our test cases covered all acceptance criteria, and then validate by showing the actual test execution results."
 
-**⚡ Key Points:**
-- Verification = static, process-focused, during development
-- Validation = dynamic, product-focused, after development
-- Easy memory trick: Verification = V for "View" (you review documents); Validation = V for "Verify it works" (you run the tests)
 
 ---
 
@@ -317,13 +170,7 @@ The whole team votes simultaneously using cards. If estimates differ widely (e.g
 - **Priority** = how urgently it needs to be fixed (set by the business/PM)
 - They are NOT the same thing — a serious bug can sometimes be low priority, and a minor bug can be high priority.
 
-**Detailed Comparison:**
 
-| Aspect | Priority | Severity |
-|--------|----------|----------|
-| Meaning | How **urgently** it needs to be fixed | How **badly** it breaks the system |
-| Who decides | **Project Manager / Business** | **QA / Tester** |
-| Levels | P1 (Critical), P2 (High), P3 (Medium), P4 (Low) | S1 (Blocker), S2 (Critical), S3 (Major), S4 (Minor) |
 
 **The 4 Important Combinations — With Real Examples:**
 
@@ -333,14 +180,6 @@ The whole team votes simultaneously using cards. If estimates differ widely (e.g
 | **High Severity + Low Priority** | App crashes on Internet Explorer 6 — nobody uses IE6 anymore. Fix eventually. |
 | **Low Severity + High Priority** | Company logo is missing on the homepage — doesn't break anything but looks bad to all users. Fix today. |
 | **Low Severity + Low Priority** | Typo in the footer on the "About Us" page. Fix whenever convenient. |
-
-**💬 How to say it in an interview:**
-> "I always set severity based on technical impact, and the PM sets priority based on business impact. At Aflac, I found a bug where the payment API returned 200 OK even when the payment was declined. That was S1 Severity — it completely broke the payment flow. And it was also P1 Priority because it involved money. But I've also logged bugs that were S2 technically — like incorrect tax calculation in a report — but the business said P3 because that report was only used once a month. As a Senior SDET, you learn to communicate both clearly."
-
-**⚡ Key Points:**
-- Severity = technical impact (QA sets it)
-- Priority = business urgency (PM sets it)
-- They can be different — always explain this with examples in interviews
 
 ---
 
@@ -361,29 +200,11 @@ New → Assigned → Open → In Progress → Fixed → Ready for Retest
                                          Verified          Reopen → Assigned (cycle repeats)
                                             ↓
                                          Closed
-```
 
-**Additional Bug States:**
-- **Rejected** — Dev says it is not a bug (e.g., it is working as designed)
-- **Deferred** — Valid bug but will be fixed in a future release
-- **Duplicate** — Same bug has already been reported
-- **Cannot Reproduce** — Dev cannot replicate the issue (always provide clear reproduction steps!)
-- **Hold** — Waiting for a decision or more information
-
-**As SDET, your responsibilities:**
-- Log bugs with clear **title, steps to reproduce, expected vs actual result, screenshots/videos, severity**
-- Retest fixed bugs promptly so they don't sit in the QA queue
-- Close bugs only after confirming the fix works in ALL affected environments
-- If a bug is marked "Cannot Reproduce" — provide video evidence, logs, or test data
 
 **💬 How to say it in an interview:**
 > "I manage the full bug life cycle in JIRA. When I find a bug, I log it with detailed steps to reproduce, expected vs actual result, screenshots, and a severity label. After the developer fixes it, they move it to 'Fixed' and I retest it. At Aflac, I had a critical payment bug that was marked 'Cannot Reproduce' by the developer. I recorded a video of the exact steps, attached the API response logs, and provided the test data — within 2 hours they reproduced it and it became a P1 fix."
 
-**⚡ Key Points:**
-- New → Assigned → Open → Fixed → Retest → Verified → Closed
-- You retest ALL fixed bugs — never assume a fix is correct
-- Always log with: steps, expected vs actual, severity, screenshots
-- If dev says "Cannot Reproduce" — provide video/logs/test data as evidence
 
 ---
 
@@ -391,29 +212,7 @@ New → Assigned → Open → In Progress → Fixed → Ready for Retest
 
 **Simple Answer:**
 A Test Plan is a document that defines the entire testing strategy for a project — what will be tested, how, by whom, and when. It is the roadmap for the QA team.
-
-**Detailed Explanation:**
-A Test Plan is a formal document that covers the complete testing strategy. It is written by the **QA Lead or Senior SDET** at the beginning of the project.
-
-**Key Sections of a Test Plan:**
-1. **Test Scope** — what features are IN scope and what is OUT of scope
-2. **Test Strategy** — types of testing: functional, regression, API, cross-browser, performance
-3. **Entry Criteria** — conditions that must be met before testing begins
-4. **Exit Criteria** — conditions that must be met before testing is signed off
-5. **Test Environment** — operating systems, browsers, devices, server URLs
-6. **Test Deliverables** — what will be produced: test cases, execution reports, defect summary
-7. **Roles & Responsibilities** — who tests what
-8. **Schedule** — testing milestones and timelines
-9. **Risk & Mitigation** — potential risks (environment instability, late requirements) and backup plans
-10. **Tools** — Selenium, JIRA, Jenkins, REST Assured, Postman
-
-**💬 How to say it in an interview:**
-> "At the start of every major project, I create or contribute to a Test Plan. At Office Depot, I owned the test plan for the checkout automation project. I defined the scope — UI automation for checkout, API testing for the payment service, and SQL validation for order data. I documented entry criteria like 'build must pass smoke test' and exit criteria like '0 P1/P2 open bugs and 95% test case execution'. This document was shared with the PM and client so everyone had the same expectations."
-
-**⚡ Key Points:**
-- Test Plan = testing roadmap for the whole project
-- Must include scope, strategy, entry/exit criteria, risks, tools, schedule
-- As Senior SDET — you write or review this document, not just follow it
+A Test Plan is a formal document that covers the complete testing strategy. It is written by the **QA Lead or Senior SDET** at the beginning of the project
 
 ---
 
@@ -423,36 +222,12 @@ A Test Plan is a formal document that covers the complete testing strategy. It i
 - **Entry Criteria** = the checklist of things that must be ready BEFORE testing starts
 - **Exit Criteria** = the checklist of things that must be achieved BEFORE testing is signed off
 
-**Detailed Comparison:**
-
-| Aspect | Entry Criteria | Exit Criteria |
-|--------|---------------|---------------|
-| When applied | Before testing **starts** | Before testing **ends** |
-| Purpose | Confirms the team is ready to test | Confirms the product is ready to release |
-
-**Entry Criteria Examples:**
-- Requirements are reviewed, finalised, and approved
-- Test environment is set up and accessible
-- Test data is prepared and validated
-- Build is deployed to the test environment and passes basic smoke tests
-- All blockers from the previous sprint are resolved
-
-**Exit Criteria Examples:**
-- All test cases in scope have been executed (minimum 95%)
-- Zero P1 (Blocker) or P2 (Critical) open defects
-- All high-severity defects are resolved and verified
-- Test execution report and defect summary report are prepared
-- Product Owner has signed off on the completed features
-
-**💬 How to say it in an interview:**
-> "I follow entry and exit criteria strictly. At Aflac, before I started testing a new sprint build, my entry criteria included: the build must pass the smoke test suite (automated), test data must be set up in staging, and requirements must have finalised acceptance criteria. If any of these were missing, I would raise a blocker in standup rather than starting testing blindly. For exit criteria, I required zero P1/P2 open bugs and 95%+ test case execution before I would give a GO sign-off to the team."
 
 **⚡ Key Points:**
 - Entry Criteria = gates before testing starts (incomplete = don't start testing)
 - Exit Criteria = gates before you say "ready to release"
-- As Senior SDET, you define and enforce these — not just follow them
 
----
+-------------------------------------------------------------------------------------------
 
 # DATA-DRIVEN FRAMEWORK DESCRIPTION
 
