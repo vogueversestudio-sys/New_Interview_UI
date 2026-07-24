@@ -7,24 +7,13 @@
 
 > **Tip:** Memorise this and say it confidently in the first 2 minutes. Keep it under 3 minutes. Practice it out loud every day.
 
-"Hi, I'm Vikrant Mishra. I have over 8 years of experience as a **Senior SDET and QA Automation Engineer**, specialising in test automation, API testing, and AI-assisted testing.
+"Hi, I'm Vikrant Mishra, a Senior SDET with over 8 years of experience across web, API, and biometric systems, specialising in test automation, API testing, and AI-assisted testing.
 
-**Currently**, I am working at **CloudAngles** on the **PersonifyHealth** project — a health and wellness platform. My responsibilities include:
-- Designing and maintaining automation frameworks using **Python** and **Playwright**
-- Building REST API test suites covering functional, integration, and negative scenarios
-- Using **AI-assisted testing tools** like Windsurf and GitHub Copilot to speed up test script creation
-- Managing **CI/CD pipelines** via Jenkins and working in a **Scrum/Agile** team with JIRA for test management
+Right now I'm at Cloud Angles on the Personify Health platform, leading automation scripting and test strategy using Playwright, TypeScript, and REST Assured across both API and UI. I also mentor a QA automation team and use AI tools like Windsurf to speed up script development.
 
-**Before this**, I worked at **IDEMIA Syscom India** on a biometric identity platform — testing fingerprint, facial, and iris recognition systems. And before that, at **Coforge**, I worked on two major clients: **Office Depot** (e-commerce) and **Aflac** (health insurance). At Office Depot, I built a Selenium automation framework from scratch that reduced our regression cycle from 3 days to 4 hours.
+Before this, I spent two years at IDEMIA testing biometric systems — fingerprint, facial, and iris recognition. And earlier at Coforge, I work Selenium and Java frameworks for clients like Office Depot and Aflac.
 
-**Key highlights from my career:**
-- Automated **500+ regression test cases**, cutting the regression cycle from 3 days to just 4 hours
-- Identified a **P1 payment defect** at Aflac that could have caused financial losses for thousands of customers
-- Awarded **Employee of the Month** for UI automation contributions
-- **Mentored junior SDETs** and conducted knowledge transfer sessions
-- Recently upskilled in **AI-assisted testing** using Windsurf, GitHub Copilot, and Playwright
-
-My core strengths are Selenium WebDriver, Playwright, REST Assured, Java, Python, Jenkins CI/CD, and Agile/Scrum. I am now looking for a Senior SDET role where I can bring this experience to a strong engineering team."
+My core stack is Selenium, Playwright, REST Assured, Java, and SQL. I'm now looking for a new role where I can bring this mix of hands-on automation and team leadership to a strong engineering team.
 
 ---
 
